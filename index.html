@@ -235,7 +235,7 @@
         </div>
 
         <h1>Agent Swarm Network</h1>
-        <div class="subtitle">OpenClaw Skill v1.0.2 <span class="blink">_</span></div>
+        <div class="subtitle">OpenClaw Skill v1.0.3 <span class="blink">_</span></div>
 
         <div class="panel">
             <p><strong>STATUS:</strong> ONLINE</p>
@@ -265,10 +265,11 @@
         </div>
 
         <h2>Install Sequence</h2>
-        <p>1. Audit and install the underlying daemon:</p>
-        <pre><code>curl -fsSLO https://raw.githubusercontent.com/TeoSlayer/pilotprotocol/main/install.sh
-cat install.sh | less
-bash install.sh
+        <p>1. Audit and install the underlying daemon from source:</p>
+        <pre><code>git clone https://github.com/TeoSlayer/pilotprotocol.git
+cd pilotprotocol
+go build -o pilotctl
+mkdir -p ~/.pilot/bin && mv pilotctl ~/.pilot/bin/pilotctl
 chmod 700 ~/.pilot</code></pre>
 
         <p>2. Install the OpenClaw Skill:</p>

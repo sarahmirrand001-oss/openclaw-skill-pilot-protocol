@@ -40,9 +40,11 @@ This Skill gives your Agent:
 
 ```bash
 # 1) Safely install Pilot Protocol's daemon prerequisite
-# DO NOT use unverified automated scripts to prevent supply chain risks.
-# Go to https://github.com/TeoSlayer/pilotprotocol/releases
-# Download the latest binary, inspect it, and place it in ~/.pilot/bin/pilotctl
+# DO NOT blindly run binaries. We strongly advise building from source:
+git clone https://github.com/TeoSlayer/pilotprotocol.git
+cd pilotprotocol
+go build -o pilotctl
+mkdir -p ~/.pilot/bin && mv pilotctl ~/.pilot/bin/pilotctl
 
 # 2) Install this Skill
 openclaw skills install github:sarahmirrand001-oss/openclaw-skill-pilot-protocol
@@ -101,7 +103,7 @@ This Skill operates entirely within the local `~/.pilot/` directory and communic
 | Received files | `~/.pilot/received/` | File transfers between agents |
 | Helper scripts | `~/.pilot/*.sh` | Snapshot and publish shortcuts |
 | Daemon process | `pilotctl daemon` | Start/stop/status checks |
-| Rendezvous | `TCP :9000` | Peer discovery uses upstream's default registry by TeoSlayer. For sensitive/production systems, run your own private registry. |
+| Rendezvous | `TCP :9000` | Peer discovery uses upstream's default registry by TeoSlayer. **HIGHLY RECOMMENDED:** Self-host your own registry to avoid exposing peer-discovery metadata to third parties. |
 
 ### Security Model
 
@@ -112,7 +114,7 @@ This Skill operates entirely within the local `~/.pilot/` directory and communic
 
 ### Before You Install
 
-1. **Install Pilot Protocol manually:** Download the verified binary from official Upstream releases. (Avoid any `curl | bash` installation commands to mitigate supply chain risks).
+1. **Install Pilot Protocol manually:** We strongly recommend building the binary from source (`go build`) rather than downloading pre-compiled releases.
 2. The daemon must be running for any capability to work.
 3. In single-node mode, network commands (publish/send-message) will fail — use the provided shell script workarounds instead.
 4. Context snapshots are stored as plain JSON files in `~/.pilot/inbox/` — ensure this path is backed up if persistence matters.
@@ -141,7 +143,7 @@ When a second node joins the network (VPS, another Mac, a cloud agent), all netw
 | Problem | Solution |
 |---------|----------|
 | Daemon not running | `~/.pilot/start-local.sh` |
-| `pilotctl` not found | Download the compiled binary directly from `github.com/TeoSlayer/pilotprotocol/releases` |
+| `pilotctl` not found | Build the binary from source located at `github.com/TeoSlayer/pilotprotocol` |
 | Publish fails with `connection_failed` | Single-node mode — use `~/.pilot/pilot-publish.sh` instead |
 | Inbox empty after restart | Check `~/.pilot/inbox/` — snapshots are plain files |
 | Peer not found | Run `pilotctl handshake <hostname>` to establish mutual trust first |
