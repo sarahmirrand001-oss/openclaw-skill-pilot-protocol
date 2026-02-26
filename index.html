@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Swarm Network | OpenClaw Skill</title>
+    <meta name="description"
+        content="Cross-session persistent context, event-driven collaboration, and sub-agent routing. Powered by the open-source Pilot Protocol by TeoSlayer.">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+        :root {
+            --bg-color: #000000;
+            --text-main: #00ff00;
+            --text-dim: #008800;
+            --accent: #ff00ff;
+            --alert: #ff0000;
+            --grid-color: rgba(0, 255, 0, 0.1);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'VT323', monospace;
+            line-height: 1.6;
+            background-image:
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 20px 20px;
+            overflow-x: hidden;
+        }
+
+        /* CRT Scanline effect */
+        body::after {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Press Start 2P', cursive;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: var(--accent);
+            text-shadow: 2px 2px 0px rgba(255, 0, 255, 0.3);
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: var(--text-dim);
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            font-size: 16px;
+            border-bottom: 2px solid var(--text-main);
+            padding-bottom: 10px;
+            margin-top: 50px;
+        }
+
+        .panel {
+            border: 2px solid var(--text-main);
+            padding: 20px;
+            margin: 20px 0;
+            background-color: rgba(0, 20, 0, 0.8);
+            box-shadow: 4px 4px 0px var(--text-dim);
+        }
+
+        .alert-panel {
+            border-color: var(--alert);
+            box-shadow: 4px 4px 0px rgba(255, 0, 0, 0.5);
+            color: var(--alert);
+        }
+
+        .alert-panel h3 {
+            color: var(--alert);
+        }
+
+        pre,
+        code {
+            font-family: 'VT323', monospace;
+            background-color: #001100;
+            color: #55ff55;
+            padding: 15px;
+            border: 1px solid var(--text-dim);
+            display: block;
+            white-space: pre-wrap;
+            font-size: 18px;
+        }
+
+        code.inline {
+            display: inline;
+            padding: 2px 6px;
+            background-color: #002200;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+            position: relative;
+            font-size: 20px;
+        }
+
+        ul li::before {
+            content: ">";
+            position: absolute;
+            left: -20px;
+            color: var(--accent);
+        }
+
+        .blink {
+            animation: blink-animation 1s steps(2, start) infinite;
+        }
+
+        @keyframes blink-animation {
+            to {
+                visibility: hidden;
+            }
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--text-main);
+            color: var(--bg-color);
+            text-decoration: none;
+            padding: 15px 30px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 12px;
+            margin-top: 20px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 4px 4px 0px var(--text-dim);
+            transition: all 0.1s;
+        }
+
+        .btn:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px var(--text-dim);
+            background-color: #55ff55;
+        }
+
+        .btn-github {
+            background-color: transparent;
+            color: var(--text-main);
+            border: 2px solid var(--text-main);
+            margin-left: 10px;
+        }
+
+        .btn-github:hover {
+            background-color: var(--text-dim);
+            color: #000;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 18px;
+        }
+
+        th,
+        td {
+            border: 1px solid var(--text-dim);
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #002200;
+        }
+
+        .teoslayer-credit {
+            font-size: 16px;
+            color: var(--text-dim);
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px dashed var(--text-dim);
+        }
+
+        .teoslayer-credit a {
+            color: var(--accent);
+        }
+
+        /* ASCII Art */
+        .ascii-art {
+            color: var(--accent);
+            white-space: pre;
+            font-family: monospace;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="ascii-art">
+            _____ __
+            / ___/ ______ __________ / /
+            \__ \ | /| / / __ `/ ___/ __ \/ /
+            ___/ / |/ |/ / /_/ / / / / / /_/
+            /____/|__/|__/\__,_/_/ /_/ /_(_)
+        </div>
+
+        <h1>Agent Swarm Network</h1>
+        <div class="subtitle">OpenClaw Skill v1.0.1 <span class="blink">_</span></div>
+
+        <div class="panel">
+            <p><strong>STATUS:</strong> ONLINE</p>
+            <p><strong>FUNCTION:</strong> The nervous system for your Agent fleet. If OpenClaw is the brain, Agent Swarm
+                Network is the spine.</p>
+            <p>Provides inter-agent messaging, cross-session context persistent snapshot/restore, pubsub event-driven
+                collaboration, and sub-agent routing.</p>
+        </div>
+
+        <h2>Capabilities</h2>
+        <ul>
+            <li><strong>Cross-session memory:</strong> Continues context across agent restarts.</li>
+            <li><strong>Agent-to-agent messaging:</strong> Encrypted P2P comms via UDP tunnels.</li>
+            <li><strong>Context overflow auto-protection:</strong> Serializes state before tokens run out.</li>
+            <li><strong>Sub-agent Orchestration:</strong> Route tasks via capability tags.</li>
+            <li><strong>Complete Local Freedom:</strong> Zero external APIs. Zero browser tracking.</li>
+        </ul>
+
+        <div class="panel alert-panel">
+            <h3>[ AUDIT WARNING ] - Provenance & Security</h3>
+            <p>This skill requires a background Daemon process to handle Encrypted UDP tunnels (X25519 + AES-256-GCM).
+            </p>
+            <p><strong>JSON Snapshot Risk:</strong> Context snapshots are stored locally as plain JSON. You MUST secure
+                your inbox folder (`chmod 700 ~/.pilot/inbox/`) to prevent leaking session PII.</p>
+            <p><strong>Registry Reliance:</strong> Discovery requires a rendezvous registry (TCP :9000). The default
+                registry is operated by upstream TeoSlayer. Self-host for strict air-gapped privacy.</p>
+        </div>
+
+        <h2>Install Sequence</h2>
+        <p>1. Audit and install the underlying daemon:</p>
+        <pre><code>curl -fsSLO https://raw.githubusercontent.com/TeoSlayer/pilotprotocol/main/install.sh
+cat install.sh | less
+bash install.sh
+chmod 700 ~/.pilot</code></pre>
+
+        <p>2. Install the OpenClaw Skill:</p>
+        <pre><code>openclaw skills install github:sarahmirrand001-oss/openclaw-skill-pilot-protocol</code></pre>
+
+        <p>3. Initialize network node:</p>
+        <pre><code>~/.pilot/start-local.sh
+~/.pilot/bin/pilotctl --json daemon status</code></pre>
+
+        <div>
+            <a href="https://clawhub.ai/skills/agent-swarm-network" class="btn" target="_blank">VIEW ON CLAWHUB</a>
+            <a href="https://github.com/sarahmirrand001-oss/openclaw-skill-pilot-protocol" class="btn btn-github"
+                target="_blank">SOURCE CODE</a>
+        </div>
+
+        <div class="teoslayer-credit">
+            <p>Built with immense gratitude on top of the <a href="https://github.com/TeoSlayer/pilotprotocol"
+                    target="_blank">Pilot Protocol</a> by TeoSlayer.</p>
+            <p><em>"Building the Internet of Agents."</em></p>
+        </div>
+    </div>
+</body>
+
+</html>
