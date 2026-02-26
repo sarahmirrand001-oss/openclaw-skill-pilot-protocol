@@ -1,6 +1,6 @@
 ---
 name: Agent Swarm Network
-version: 1.0.0
+version: 1.0.1
 description: >
   Agent communication protocol skill. Provides: inter-agent messaging, context
   snapshot/restore, event-driven collaboration, model dispatch notifications,
