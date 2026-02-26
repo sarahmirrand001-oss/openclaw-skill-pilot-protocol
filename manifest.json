@@ -1,8 +1,8 @@
 {
     "$schema": "https://spec.modelcontextprotocol.io/2025-03/skill.json",
-    "name": "pilot-protocol",
+    "name": "agent-swarm-network",
     "version": "1.0.0",
-    "description": "Agent communication protocol skill. Provides inter-agent messaging, context snapshot/restore, event-driven collaboration, sub-agent management, task routing, file transfer, and network diagnostics. Built on Pilot Protocol by TeoSlayer.",
+    "description": "Agent Swarm Network skill for cross-session persistent context, event-driven collaboration, and sub-agent routing. Powered by the open-source Pilot Protocol by TeoSlayer.",
     "author": "sarahmirrand001-oss",
     "license": "MIT",
     "repository": "https://github.com/sarahmirrand001-oss/openclaw-skill-pilot-protocol",

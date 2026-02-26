@@ -1,7 +1,7 @@
-# OpenClaw Skill: Pilot Protocol
+# OpenClaw Skill: Agent Swarm Network
 
 > The nervous system for your Agent fleet.
-> If OpenClaw is the brain, Pilot Protocol is the spine.
+> If OpenClaw is the brain, Agent Swarm Network is the spine.
 
 **Unified communication backbone** for all AI tools in the OpenClaw ecosystem — inter-agent messaging, context snapshot/restore, event-driven collaboration, sub-agent management, and network diagnostics. Built on top of [Pilot Protocol](https://github.com/TeoSlayer/pilotprotocol) by [@TeoSlayer](https://github.com/TeoSlayer).
 
@@ -145,6 +145,6 @@ This Skill is built on top of [**Pilot Protocol**](https://github.com/TeoSlayer/
 
 ---
 
-*"Pilot Protocol = the Agent's nervous system. OpenClaw = the Agent's brain."*
+*"Agent Swarm Network = the Agent's nervous system. OpenClaw = the Agent's brain."*
 
 *Built for operators who build for agents.*

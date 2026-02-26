@@ -1,5 +1,5 @@
 ---
-name: Pilot Protocol
+name: Agent Swarm Network
 version: 1.0.0
 description: >
   Agent communication protocol skill. Provides: inter-agent messaging, context
@@ -10,12 +10,12 @@ description: >
   Built on top of Pilot Protocol (https://github.com/TeoSlayer/pilotprotocol).
 ---
 
-# Pilot Protocol — Agent Communication Skill
+# Agent Swarm Network — Agent Communication Skill
 
 > A unified communication backbone for every AI tool in the OpenClaw ecosystem
 > (OpenClaw / Antigravity / Codex).
 >
-> Analogy: Pilot Protocol = the Agent's nervous system. OpenClaw = the Agent's brain.
+> Analogy: This network = the Agent's nervous system. OpenClaw = the Agent's brain.
 
 ## Acknowledgments
 
