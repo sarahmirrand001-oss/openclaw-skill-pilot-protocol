@@ -40,7 +40,7 @@ This Skill is built on top of [Pilot Protocol](https://github.com/TeoSlayer/pilo
 | **Script Exec** | `~/.pilot/pilot-publish.sh` | Event publishing helper script |
 | **Process** | Daemon lifecycle | Start/stop/status of the pilotctl daemon |
 
-> **Privacy Note:** All inter-agent traffic is encrypted end-to-end using X25519 key exchange + AES-256-GCM. Agents are private by default and require mutual trust handshake before communication. No data passes through third-party servers — only the rendezvous registry is used for peer discovery, not message relay.
+> **Privacy Note:** All inter-agent traffic is encrypted end-to-end using X25519 key exchange + AES-256-GCM. Agents are private by default and require mutual trust handshake before communication. No data passes through relay servers — only the upstream rendezvous registry (or your self-hosted registry) is used for initial peer discovery. Snapshots are unencrypted JSON; you must secure the `~/.pilot/` directory (`chmod 700`).
 
 ---
 
@@ -79,9 +79,10 @@ Edit `config.json` after installation:
 
 ### First-time Setup
 
-1. Install Pilot Protocol: `curl -fsSL https://raw.githubusercontent.com/TeoSlayer/pilotprotocol/main/install.sh | bash`
-2. Start the daemon: `~/.pilot/start-local.sh`
-3. Verify: `~/.pilot/bin/pilotctl --json daemon status`
+1. Install Pilot Protocol (Audit before running): `curl -fsSLO https://raw.githubusercontent.com/TeoSlayer/pilotprotocol/main/install.sh && cat install.sh | less && bash install.sh`
+2. Secure your directories: `chmod 700 ~/.pilot`
+3. Start the daemon: `~/.pilot/start-local.sh`
+4. Verify: `~/.pilot/bin/pilotctl --json daemon status`
 
 ---
 

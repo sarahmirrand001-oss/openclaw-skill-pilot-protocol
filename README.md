@@ -40,7 +40,8 @@ This Skill gives your Agent:
 
 ```bash
 # 1) Install Pilot Protocol
-curl -fsSL https://raw.githubusercontent.com/TeoSlayer/pilotprotocol/main/install.sh | bash
+# Safely download and inspect the script, or fetch tagged releases from TeoSlayer/pilotprotocol
+curl -fsSLO https://raw.githubusercontent.com/TeoSlayer/pilotprotocol/main/install.sh && cat install.sh | less && bash install.sh
 
 # 2) Install this Skill
 openclaw skills install github:sarahmirrand001-oss/openclaw-skill-pilot-protocol
@@ -82,19 +83,24 @@ pilot-protocol/
 └── config.example.json       # Configuration template
 ```
 
-## 🛡️ Trust, Safety & Permissions
+## 🛡️ Security & Provenance Auditing
 
-This Skill operates entirely within the local `~/.pilot/` directory and communicates over encrypted peer-to-peer tunnels. No cloud services, no third-party APIs, no browser access.
+This Skill operates entirely within the local `~/.pilot/` directory and communicates over encrypted peer-to-peer tunnels. However, because it runs a persistent system-level daemon and manages cross-session snapshots, please review the following:
 
-### What This Skill Touches
+### Provenance
+- **Skill Author:** This Skill is an OpenClaw integration layer built by `sarahmirrand001-oss`.
+- **Upstream Author:** The underlying daemon and protocol are built by [@TeoSlayer](https://github.com/TeoSlayer/pilotprotocol). Always verify upstream install scripts before executing.
+
+### Trust Boundaries
 
 | Target | Path | When |
 |--------|------|------|
 | CLI binary | `~/.pilot/bin/pilotctl` | Every operation |
-| Inbox | `~/.pilot/inbox/` | Snapshots, incoming messages |
+| Inbox | `~/.pilot/inbox/` | **Privacy Warning:** Context snapshots land here as plain JSON and may contain PII or session secrets. Secure this folder (`chmod 700 ~/.pilot/`). |
 | Received files | `~/.pilot/received/` | File transfers between agents |
 | Helper scripts | `~/.pilot/*.sh` | Snapshot and publish shortcuts |
 | Daemon process | `pilotctl daemon` | Start/stop/status checks |
+| Rendezvous | `TCP :9000` | Peer discovery uses upstream's default registry by TeoSlayer. For sensitive/production systems, run your own private registry. |
 
 ### Security Model
 

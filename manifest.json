@@ -61,15 +61,15 @@
         "channels": [
             "Unix socket (localhost) — Agent to Daemon communication",
             "Encrypted UDP tunnels (X25519 + AES-256-GCM) — Daemon to Daemon, peer-to-peer",
-            "TCP :9000 — Registry connection for peer discovery (rendezvous server only)"
+            "TCP :9000 — Registry connection for peer discovery (operated by upstream maintainer TeoSlayer; self-hosting supported)"
         ],
         "note": "In single-node mode, network commands fall back to local file writes. No external network traffic in single-node mode."
     },
     "privacy_considerations": [
         "All inter-agent traffic is encrypted end-to-end (AES-256-GCM).",
         "Agents are private by default; mutual trust handshake required before communication.",
-        "Context snapshots are stored as plain JSON files locally in ~/.pilot/inbox/.",
-        "No data is sent to third-party cloud services. Only the rendezvous registry is contacted for peer discovery.",
+        "Context snapshots are stored as plain JSON files locally in ~/.pilot/inbox/. Users MUST secure this directory (chmod 700) as snapshots may contain sensitive PII or API keys.",
+        "No data is sent to third-party cloud services. The default rendezvous registry is operated by upstream (@TeoSlayer) solely for peer discovery. Self-host for strict privacy.",
         "The Skill does not access any browser sessions, cookies, or external credentials."
     ],
     "persistence_effects": [
