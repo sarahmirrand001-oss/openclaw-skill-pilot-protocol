@@ -39,9 +39,10 @@ This Skill gives your Agent:
 ## Quick Start
 
 ```bash
-# 1) Install Pilot Protocol
-# Safely download and inspect the script, or fetch tagged releases from TeoSlayer/pilotprotocol
-curl -fsSLO https://raw.githubusercontent.com/TeoSlayer/pilotprotocol/main/install.sh && cat install.sh | less && bash install.sh
+# 1) Safely install Pilot Protocol's daemon prerequisite
+# DO NOT use unverified automated scripts to prevent supply chain risks.
+# Go to https://github.com/TeoSlayer/pilotprotocol/releases
+# Download the latest binary, inspect it, and place it in ~/.pilot/bin/pilotctl
 
 # 2) Install this Skill
 openclaw skills install github:sarahmirrand001-oss/openclaw-skill-pilot-protocol
@@ -96,7 +97,7 @@ This Skill operates entirely within the local `~/.pilot/` directory and communic
 | Target | Path | When |
 |--------|------|------|
 | CLI binary | `~/.pilot/bin/pilotctl` | Every operation |
-| Inbox | `~/.pilot/inbox/` | **Privacy Warning:** Context snapshots land here as plain JSON and may contain PII or session secrets. Secure this folder (`chmod 700 ~/.pilot/`). |
+| Inbox | `~/.pilot/inbox/` | **Data-at-Rest Vulnerability:** Context snapshots land here as unencrypted JSON and WILL contain PII, API keys, and session secrets. You MUST secure this folder (`chmod 700 ~/.pilot/`) and regularly clear out old snapshots to minimize data exposure. |
 | Received files | `~/.pilot/received/` | File transfers between agents |
 | Helper scripts | `~/.pilot/*.sh` | Snapshot and publish shortcuts |
 | Daemon process | `pilotctl daemon` | Start/stop/status checks |
@@ -111,7 +112,7 @@ This Skill operates entirely within the local `~/.pilot/` directory and communic
 
 ### Before You Install
 
-1. Install Pilot Protocol first (`pilotctl` must be at `~/.pilot/bin/pilotctl`).
+1. **Install Pilot Protocol manually:** Download the verified binary from official Upstream releases. (Avoid any `curl | bash` installation commands to mitigate supply chain risks).
 2. The daemon must be running for any capability to work.
 3. In single-node mode, network commands (publish/send-message) will fail — use the provided shell script workarounds instead.
 4. Context snapshots are stored as plain JSON files in `~/.pilot/inbox/` — ensure this path is backed up if persistence matters.
@@ -140,7 +141,7 @@ When a second node joins the network (VPS, another Mac, a cloud agent), all netw
 | Problem | Solution |
 |---------|----------|
 | Daemon not running | `~/.pilot/start-local.sh` |
-| `pilotctl` not found | Install: `curl -fsSL https://raw.githubusercontent.com/TeoSlayer/pilotprotocol/main/install.sh \| bash` |
+| `pilotctl` not found | Download the compiled binary directly from `github.com/TeoSlayer/pilotprotocol/releases` |
 | Publish fails with `connection_failed` | Single-node mode — use `~/.pilot/pilot-publish.sh` instead |
 | Inbox empty after restart | Check `~/.pilot/inbox/` — snapshots are plain files |
 | Peer not found | Run `pilotctl handshake <hostname>` to establish mutual trust first |

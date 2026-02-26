@@ -1,7 +1,7 @@
 {
     "$schema": "https://spec.modelcontextprotocol.io/2025-03/skill.json",
     "name": "agent-swarm-network",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Agent Swarm Network skill for cross-session persistent context, event-driven collaboration, and sub-agent routing. Powered by the open-source Pilot Protocol by TeoSlayer.",
     "author": "sarahmirrand001-oss",
     "license": "MIT",
@@ -54,6 +54,9 @@
             "~/.pilot/start-local.sh — daemon startup script",
             "~/.pilot/context-snapshot.sh — context snapshot helper",
             "~/.pilot/pilot-publish.sh — event publishing helper"
+        ],
+        "system_privileges": [
+            "NO root/sudo required. Gateway bridging over user ports (>1024) is strictly unprivileged."
         ]
     },
     "network_behavior": {
@@ -112,7 +115,7 @@
         "required": [
             {
                 "name": "pilot-protocol",
-                "reason": "Core daemon and CLI binary (pilotctl). Install from https://github.com/TeoSlayer/pilotprotocol"
+                "reason": "Core daemon and CLI binary (pilotctl). Install securely by downloading and validating the source code or signed release from https://github.com/TeoSlayer/pilotprotocol (do NOT use unverified curl|bash scripts)."
             },
             {
                 "name": "openclaw",

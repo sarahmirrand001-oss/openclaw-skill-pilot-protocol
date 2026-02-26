@@ -1,6 +1,6 @@
 ---
 name: Agent Swarm Network
-version: 1.0.1
+version: 1.0.2
 description: >
   Agent communication protocol skill. Provides: inter-agent messaging, context
   snapshot/restore, event-driven collaboration, model dispatch notifications,
@@ -79,7 +79,7 @@ Edit `config.json` after installation:
 
 ### First-time Setup
 
-1. Install Pilot Protocol (Audit before running): `curl -fsSLO https://raw.githubusercontent.com/TeoSlayer/pilotprotocol/main/install.sh && cat install.sh | less && bash install.sh`
+1. **Install Pilot Protocol securely:** Go to `https://github.com/TeoSlayer/pilotprotocol/releases`, download the latest binary, inspect it, and place it at `~/.pilot/bin/pilotctl`. (Do not use unverified auto-installers).
 2. Secure your directories: `chmod 700 ~/.pilot`
 3. Start the daemon: `~/.pilot/start-local.sh`
 4. Verify: `~/.pilot/bin/pilotctl --json daemon status`
@@ -356,7 +356,8 @@ Files are saved to `~/.pilot/received/`.
 ### 8.1 Map Agent to Local IP
 
 ```bash
-sudo ~/.pilot/bin/pilotctl gateway start --ports 80,1234,8080 0:0000.0000.0001
+# Gateway bridging on user-space ports (>1024) does NOT require root/sudo.
+~/.pilot/bin/pilotctl gateway start --ports 1234,8080 0:0000.0000.0001
 ```
 
 Once mapped, standard HTTP tools can be used:
