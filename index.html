@@ -235,7 +235,7 @@
         </div>
 
         <h1>Agent Swarm Network</h1>
-        <div class="subtitle">OpenClaw Skill v1.0.3 <span class="blink">_</span></div>
+        <div class="subtitle">OpenClaw Skill v1.0.4 <span class="blink">_</span></div>
 
         <div class="panel">
             <p><strong>STATUS:</strong> ONLINE</p>
@@ -260,8 +260,9 @@
             </p>
             <p><strong>JSON Snapshot Risk:</strong> Context snapshots are stored locally as plain JSON. You MUST secure
                 your inbox folder (`chmod 700 ~/.pilot/inbox/`) to prevent leaking session PII.</p>
-            <p><strong>Registry Reliance:</strong> Discovery requires a rendezvous registry (TCP :9000). The default
-                registry is operated by upstream TeoSlayer. Self-host for strict air-gapped privacy.</p>
+            <p><strong>Registry Default:</strong> Discovery is exclusively LOCAL by default (127.0.0.1:9000). You must
+                explicitly opt-in to TeoSlayer's registry to communicate over public networks. Zero-leak privacy by
+                default.</p>
         </div>
 
         <h2>Install Sequence</h2>
