@@ -15,9 +15,6 @@
         "context-management",
         "networking"
     ],
-    "required_binaries": [
-        "pilotctl"
-    ],
     "required_config": {
         "pilotctl_path": {
             "type": "path",
@@ -69,7 +66,7 @@
         "channels": [
             "Unix socket (localhost) — Agent to Daemon communication",
             "Encrypted UDP tunnels (X25519 + AES-256-GCM) — Daemon to Daemon, peer-to-peer",
-            "TCP :9000 — Registry connection for peer discovery (operated by upstream maintainer TeoSlayer; self-hosting supported)"
+            "TCP :9000 — Local registry connection for peer discovery (defaults to 127.0.0.1:9000; no data is sent to any external server unless the user explicitly reconfigures)"
         ],
         "note": "In single-node mode, network commands fall back to local file writes. No external network traffic in single-node mode."
     },
@@ -77,7 +74,7 @@
         "All inter-agent traffic is encrypted end-to-end (AES-256-GCM).",
         "Agents are private by default; mutual trust handshake required before communication.",
         "Context snapshots are stored as plain JSON files locally in ~/.pilot/inbox/. Users MUST secure this directory (chmod 700) as snapshots may contain sensitive PII or API keys.",
-        "No data is sent to third-party cloud services. The default rendezvous registry is operated by upstream (@TeoSlayer) solely for peer discovery. Self-host for strict privacy.",
+        "No data is sent to third-party cloud services by default. The rendezvous registry defaults to 127.0.0.1:9000 (localhost). No peer-discovery metadata leaves the machine unless the user explicitly changes registry_url to a remote address.",
         "The Skill does not access any browser sessions, cookies, or external credentials."
     ],
     "persistence_effects": [
@@ -117,8 +114,11 @@
         ]
     },
     "dependencies": {
-        "required": [
+        "binaries": [
             "pilotctl",
+            "go"
+        ],
+        "required": [
             "openclaw"
         ],
         "optional": []

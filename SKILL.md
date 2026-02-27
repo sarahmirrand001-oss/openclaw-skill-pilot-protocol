@@ -40,7 +40,7 @@ This Skill is built on top of [Pilot Protocol](https://github.com/TeoSlayer/pilo
 | **Script Exec** | `~/.pilot/pilot-publish.sh` | Event publishing helper script |
 | **Process** | Daemon lifecycle | Start/stop/status of the pilotctl daemon |
 
-> **Privacy Note:** All inter-agent traffic is encrypted end-to-end using X25519 key exchange + AES-256-GCM. Agents are private by default and require mutual trust handshake before communication. No data passes through relay servers — only the upstream rendezvous registry (or your self-hosted registry) is used for initial peer discovery. Snapshots are unencrypted JSON; you must secure the `~/.pilot/` directory (`chmod 700`).
+> **Privacy Note:** All inter-agent traffic is encrypted end-to-end using X25519 key exchange + AES-256-GCM. Agents are private by default and require mutual trust handshake before communication. No data passes through relay servers. The rendezvous registry defaults to localhost (`127.0.0.1:9000`) — no peer-discovery metadata leaves the machine unless you explicitly change `registry_url` to a remote address. Snapshots are unencrypted JSON; you must secure the `~/.pilot/` directory (`chmod 700`).
 
 ---
 

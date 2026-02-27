@@ -260,9 +260,10 @@
             </p>
             <p><strong>JSON Snapshot Risk:</strong> Context snapshots are stored locally as plain JSON. You MUST secure
                 your inbox folder (`chmod 700 ~/.pilot/inbox/`) to prevent leaking session PII.</p>
-            <p><strong>Registry Default:</strong> Discovery is exclusively LOCAL by default (127.0.0.1:9000). You must
-                explicitly opt-in to TeoSlayer's registry to communicate over public networks. Zero-leak privacy by
-                default.</p>
+            <p><strong>Registry Default:</strong> Discovery is exclusively LOCAL by default (127.0.0.1:9000). No
+                peer-discovery metadata leaves the machine unless you explicitly change registry_url to a remote
+                address.
+                Zero-leak privacy by default.</p>
         </div>
 
         <h2>Install Sequence</h2>

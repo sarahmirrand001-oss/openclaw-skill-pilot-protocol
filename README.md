@@ -103,7 +103,7 @@ This Skill operates entirely within the local `~/.pilot/` directory and communic
 | Received files | `~/.pilot/received/` | File transfers between agents |
 | Helper scripts | `~/.pilot/*.sh` | Snapshot and publish shortcuts |
 | Daemon process | `pilotctl daemon` | Start/stop/status checks |
-| Rendezvous | `TCP :9000` | Peer discovery uses upstream's default registry by TeoSlayer. **HIGHLY RECOMMENDED:** Self-host your own registry to avoid exposing peer-discovery metadata to third parties. |
+| Rendezvous | `TCP :9000` | Peer discovery defaults to **localhost** (`127.0.0.1:9000`). No metadata leaves the machine unless you explicitly change `registry_url` to a remote address. |
 
 ### Security Model
 
