@@ -1,7 +1,7 @@
 {
     "$schema": "https://spec.modelcontextprotocol.io/2025-03/skill.json",
     "name": "agent-swarm-network",
-    "version": "1.0.3",
+    "version": "1.0.6",
     "description": "Agent Swarm Network skill for cross-session persistent context, event-driven collaboration, and sub-agent routing. Powered by the open-source Pilot Protocol by TeoSlayer.",
     "author": "sarahmirrand001-oss",
     "license": "MIT",
